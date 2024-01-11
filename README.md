@@ -1,6 +1,6 @@
 # NodeHoster
 
-A .Net core solution aimed to simplify and provide the possibility to use IIS capabilities while hosting NodeJS-applications on Windows Server.
+A .NET solution aimed to simplify and provide the possibility to use IIS capabilities while hosting NodeJS applications on Windows Server.
 
 Originally created by [Hallbergs](https://github.com/Hallbergs) and later modified by [jesade-vbg](https://github.com/jesade-vbg) to include AD group lookup and a user cache etc.
 
@@ -90,7 +90,7 @@ When you've made sure to check all the settings, you'll have to set up a new sit
 
 ## TODO
 
-This solution was thrown together, and there are probably several bugs etc. One known bug is that sometimes the installation of `node_modules` sometimes fail. This is probably due to insufficient folder permissions. **My suggestion would be to install the node_modules manually before deploying the solution to IIS.**
+This solution was thrown together, and there are probably several bugs etc. One known bug is that the installation of `node_modules` will sometimes fail. This is probably due to insufficient folder permissions. **My suggestion would be to install the node_modules manually before deploying the solution to IIS.**
 
 Potential additions:
 
