@@ -6,7 +6,7 @@ Originally created by [Hallbergs](https://github.com/Hallbergs) and later modifi
 
 ## Why?
 
-I wanted to provide a way to host a NodeJS-application on Windows server, without the hassle of dealing with setting up PM2 as a service etc. I also wanted to use the provided Windows Authentication from IIS, and pass the logged on user to the NodeJS-application.
+I wanted to provide a way to host a NodeJS application on Windows server, without the hassle of dealing with setting up PM2 as a service etc. I also wanted to use the provided Windows Authentication from IIS, and pass the logged on user to the NodeJS application.
 
 ## Application structure
 
@@ -19,7 +19,7 @@ The application contains three parts:
 
 When the application is deployed to IIS, it will make sure that a proper version of Node is installed on the server, it will then start the NodeJS application and proxy all requests there.
 
-The application listens to changes to the `.env` file in the `node_directory` (the directory set in `appSettings.json` that should contain the NodeJs -application), and will restart the NodeJS-application on changes to that file.
+The application listens to changes to the `.env` file in the `node_directory` (the directory set in `appSettings.json` that should contain the NodeJs application), and will restart the NodeJS application on changes to that file.
 
 ## Deploying the application
 
