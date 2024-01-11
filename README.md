@@ -1,6 +1,6 @@
 # NodeHoster
 
-A dotnet solution aimed to simplify and provide the possibility to use IIS capabilities while hosting NodeJS-applications on Windows Server.
+A .Net core solution aimed to simplify and provide the possibility to use IIS capabilities while hosting NodeJS-applications on Windows Server.
 
 Originally created by [Hallbergs](https://github.com/Hallbergs) and later modified by [jesade-vbg](https://github.com/jesade-vbg) to include AD group lookup and a user cache etc.
 
@@ -15,9 +15,9 @@ The application contains three parts:
 - A reverse proxy (YARP)
 - A middleware adding name of the authenticated user to a header key of choice
 - The middleware can also lookup AD groups for the user and add them to a header key of choice
-- A service running a NodeJS-application as a separate process
+- A service running a NodeJS application as a separate process
 
-When the application is deployed to IIS, it will make sure that a proper version of Node is installed on the server, it will then start the NodeJS-application and proxy all requests there.
+When the application is deployed to IIS, it will make sure that a proper version of Node is installed on the server, it will then start the NodeJS application and proxy all requests there.
 
 The application listens to changes to the `.env` file in the `node_directory` (the directory set in `appSettings.json` that should contain the NodeJs -application), and will restart the NodeJS-application on changes to that file.
 
