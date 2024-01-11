@@ -95,4 +95,4 @@ This solution was thrown together, and there are probably several bugs etc. One 
 Potential additions:
 
 - Instead of just listening for changes in `.env`, adding a setting for which file types should be monitored would be good.
-- TLS Support (Currently using DirectorySearcher with probably not have support for it)
+- TLS Support (Currently using DirectorySearcher which probably not have support for it)
