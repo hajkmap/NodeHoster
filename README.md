@@ -2,7 +2,7 @@
 
 A dotnet solution aimed to simplify and provide the possibility to use IIS capabilities while hosting NodeJS-applications on Windows Server.
 
-Originally created by [Hallbergs](https://github.com/Hallbergs) and modified by [jesade-vbg](https://github.com/jesade-vbg) to include AD group lookup and a user cache etc.
+Originally created by [Hallbergs](https://github.com/Hallbergs) and later modified by [jesade-vbg](https://github.com/jesade-vbg) to include AD group lookup and a user cache etc.
 
 ## Why?
 
