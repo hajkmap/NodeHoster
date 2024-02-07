@@ -8,6 +8,10 @@ Originally created by [Hallbergs](https://github.com/Hallbergs) and later modifi
 
 I wanted to provide a way to host a NodeJS application on Windows server, without the hassle of dealing with setting up PM2 as a service etc. I also wanted to use the provided Windows Authentication from IIS, and pass the logged on user to the NodeJS application.
 
+## .NET Version and Visual Studio
+
+Supported by .Net 8.0 and Visual Studio 2022
+
 ## Application structure
 
 The application contains three parts:
