@@ -1,6 +1,7 @@
 ﻿using NodeHoster.Middlewares;
 using System.Text.RegularExpressions;
 using System.DirectoryServices;
+using Serilog;
 
 
 namespace NodeHoster.Utils
@@ -89,7 +90,7 @@ namespace NodeHoster.Utils
 
         private string cleanUpGroup(string cnString)
         {
-            string pattern = @"CN=([A-Za-z_0-9 ]*)";
+            string pattern = @"CN=([A-Za-z_0-9 -]*)";
             string input = cnString;
             RegexOptions options = RegexOptions.Multiline;
 
@@ -105,6 +106,7 @@ namespace NodeHoster.Utils
                 return "";
             }
 
+            Log.Verbose("[UserUtility.cleanUpGroup] Input cnString '{0}' becomes group '{1}'", cnString, group);
             return group;
         }
 
@@ -127,10 +129,17 @@ namespace NodeHoster.Utils
             searcher.Filter = searchFilter;
             SearchResultCollection results = searcher.FindAll();
 
+            if (results == null)
+            {
+                Log.Information("[UserUtility.setGroups] No groups found for user '{0}'", user.UserName);
+                return;
+            }
+
             foreach (SearchResult result in results)
             {
                 foreach (String group in result.Properties["memberOf"])
                 {
+                    Log.Information("[UserUtility.setGroups] Adding group '{0}' for user '{1}'", group, user.UserName);
                     user.Groups.Add(cleanUpGroup(group));
                 }
             }
