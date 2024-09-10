@@ -75,7 +75,9 @@ The solution is to be deployed to IIS on Windows server. Publish the solution, a
     "TrustedUserHeader": "X-Control-Header", <--- Key in which logged on user is sent
     "OverrideUserWithValue": "", <--- Override value for logged on user
     "TrustedGroupHeader": "X-Control-Group-Header", <--- Key in which logged on users groups is sent
-    "OverrideGroupsWithValue": "" <--- Override value for users groups, comma separated.
+    "OverrideGroupsWithValue": "", <--- Override value for users groups, comma separated.
+    "TrustedEmailHeader": "X-Control-Email-Header", <--- Key in which logged on users email is sent
+    "OverrideEmailWithValue": "" <--- Override value for users email.
   },
   "UserCache": {
     "TimeOut":  7200 <--- Seconds. The timeout for cached users and groups. Timeout is per user. (7200s = 2 hours)

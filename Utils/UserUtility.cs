@@ -14,11 +14,13 @@ namespace NodeHoster.Utils
 
             UserName = "";
             Groups = new List<string>();
+            Email = "";
             Updated = DateTime.Now.AddYears(-1);
         }
 
         public string UserName { get; set; }
         public List<string> Groups { get; set; }
+        public string Email{ get; set; }
         public DateTime Updated { get; set; }
 
     }
@@ -52,7 +54,16 @@ namespace NodeHoster.Utils
             var user = new UserData();
             user.UserName = userName;
             user.Updated = DateTime.Now;
-            setGroups(user);
+
+#pragma warning disable CA1416 // Validate platform compatibility
+            string searchFilter = $"(&(objectCategory=User)(samAccountName={user.UserName}))";
+            DirectorySearcher searcher = new();
+            searcher.Filter = searchFilter;
+            SearchResultCollection searchResults = searcher.FindAll();
+#pragma warning restore CA1416 // Validate platform compatibility
+
+            setGroups(user, searchResults);
+            setEmail(user, searchResults);
 
             if (!Users.ContainsKey(userName))
             {
@@ -119,15 +130,9 @@ namespace NodeHoster.Utils
             return userName;
         }
 
-        private void setGroups(UserData user)
+        private void setGroups(UserData user, SearchResultCollection results)
         {
 #pragma warning disable CA1416 // Validate platform compatibility
-            string searchFilter = $"(&(objectCategory=User)(samAccountName={user.UserName}))";
-
-
-            DirectorySearcher searcher = new();
-            searcher.Filter = searchFilter;
-            SearchResultCollection results = searcher.FindAll();
 
             if (results == null)
             {
@@ -144,9 +149,36 @@ namespace NodeHoster.Utils
                 }
             }
 #pragma warning restore CA1416 // Validate platform compatibility
+
         }
 
+        private void setEmail(UserData user, SearchResultCollection results)
+        {
+#pragma warning disable CA1416 // Validate platform compatibility
+            if (results == null)
+            {
+                Log.Information("[UserUtility.setEmail] No email found for user '{0}'", user.UserName);
+                return;
+            }
 
+            string email = "";
+
+            foreach (SearchResult result in results)
+            {
+                foreach (String _email in result.Properties["mail"])
+                {
+                    if(email.Length == 0)
+                    {
+                        // only use the first email found
+                        email = _email;
+                        Log.Information("[UserUtility.setEmail] Adding email '{0}' for user '{1}'", email, user.UserName);
+                        user.Email = email;
+                    }
+                }
+            }
+#pragma warning restore CA1416 // Validate platform compatibility
+
+        }
 
 
     }

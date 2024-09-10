@@ -16,25 +16,7 @@ namespace NodeHoster.Utils
             return Path.GetDirectoryName(entryPath);
         }
 
-        private static bool GetIsNodeInstalled()
-        {
-            bool isNodeInstalled = false;
-            string nodeKeyPath = @"SOFTWARE\Node.js";
 
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(nodeKeyPath))
-            {
-                if (key != null)
-                {
-                    string installPath = key.GetValue("InstallPath") as string;
-                    if (!string.IsNullOrEmpty(installPath))
-                    {
-                        isNodeInstalled = true;
-                    }
-                }
-            }
-
-            return isNodeInstalled;
-        }
 
         private static string GetNodeVersion()
         {
@@ -61,11 +43,7 @@ namespace NodeHoster.Utils
 
         private bool SufficientNodeVersionIsInstalled()
         {
-            if (!GetIsNodeInstalled())
-            {
-                Log.Error("[NodeInstallationUtility] Node does not seem to be installed on the machine.");
-                return false;
-            }
+
             string nodeVersion = GetNodeVersion();
 
             if (string.IsNullOrEmpty(nodeVersion))
