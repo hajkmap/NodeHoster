@@ -10,7 +10,12 @@ I wanted to provide a way to host a NodeJS application on Windows server, withou
 
 ## .NET Version and Visual Studio
 
-Supported by .Net 8.0 and Visual Studio 2022
+Supported by .Net 9.0 and Visual Studio 2022 (17.13.3)
+
+## Tested with
+[nodejs v22.14.0](https://nodejs.org/en)
+[ASP.NET Core Runtime 9.0.3](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) (Hosting Bundle)
+
 
 ## Application structure
 
