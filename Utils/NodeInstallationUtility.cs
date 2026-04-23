@@ -17,7 +17,6 @@ namespace NodeHoster.Utils
         }
 
 
-
         private static string GetNodeVersion()
         {
             ProcessStartInfo startInfo = new ProcessStartInfo("node", "-v");
@@ -85,7 +84,8 @@ namespace NodeHoster.Utils
             string nodeServerPath = Path.Combine(GetProgramEntryPoint(), folderName);
             ProcessStartInfo startInfo = new ProcessStartInfo("npm", "ci");
             startInfo.WorkingDirectory = @nodeServerPath;
-            startInfo.UseShellExecute = true;
+            startInfo.UseShellExecute = false;
+            ApplyConfiguredEnvironmentVariables(startInfo);
 
             Process process = new Process();
             process.StartInfo = startInfo;
@@ -129,6 +129,7 @@ namespace NodeHoster.Utils
             ProcessStartInfo startInfo = new ProcessStartInfo("node", serverPath);
             startInfo.WorkingDirectory = serverDir;
             startInfo.UseShellExecute = false;
+            ApplyConfiguredEnvironmentVariables(startInfo);
 
             Process process = new Process();
             process.StartInfo = startInfo;
@@ -201,6 +202,23 @@ namespace NodeHoster.Utils
                 }
             };
 
+        }
+
+        private static void ApplyConfiguredEnvironmentVariables(ProcessStartInfo startInfo)
+        {
+            IConfiguration environmentSection = ConfigurationUtility.GetSection("NodeHost:Environment");
+            IEnumerable<IConfigurationSection> variables = environmentSection.GetChildren();
+
+            foreach (IConfigurationSection variable in variables)
+            {
+                if (string.IsNullOrWhiteSpace(variable.Key))
+                {
+                    continue;
+                }
+
+                string value = variable.Value ?? string.Empty;
+                startInfo.Environment[variable.Key] = value;
+            }
         }
 
         public async Task StartNodeServer()

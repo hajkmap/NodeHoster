@@ -13,10 +13,10 @@ I wanted to provide a way to host a NodeJS application on Windows server, withou
 Supported by .Net 9.0 and Visual Studio 2022 (17.13.3)
 
 ## Tested with
+
 [nodejs v22.14.0](https://nodejs.org/en)
 
 [ASP.NET Core Runtime 9.0.3](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) (Hosting Bundle)
-
 
 ## Application structure
 
@@ -94,6 +94,9 @@ The solution is to be deployed to IIS on Windows server. Publish the solution, a
     "EntryPoint": "index.js", <--- Which script should be ran to start the app?
     "FolderName": "node_server", <--- Folder containing the NodeJs-application
     "InstallNodeModules":  "false" <--- Should the app try to install node_modules?
+    "Environment": { <--- Environment variables injected into both node and npm ci processes
+      "NODE_USE_SYSTEM_CA": "1"
+    }
   }
 }
 ```
